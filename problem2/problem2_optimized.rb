@@ -1,9 +1,10 @@
-x = 1
-y = 1
-sum = 0
-while (x + y) <= 100
-  sum += (x + y)
-  x, y = x + 2 * y, 2 * x + 3 * y
-  pp x
-  pp y
+# 偶数フィボナッチの和
+x = 2
+y = 8
+sum = 2
+while y <= 4_000_000
+  sum += y
+  x, y = y, 4 * y + x # 偶数フィボナッチ数の漸化式
 end
+
+puts sum
