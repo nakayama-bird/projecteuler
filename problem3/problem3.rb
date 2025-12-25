@@ -1,116 +1,43 @@
-n = 600_851_475_143
-prime_factors = []
+class PrimeFactor
+  def self.each
+    n = 2
+    loop do
+      yield n if prime?(n)
+      n += 1
+    end
+  end
 
-if n.even?
-  prime_factors << 2
-  loop do
-    break unless n.even?
+  def self.prime?(num)
+    return false if num < 2
 
-    n /= 2
+    (2..Math.sqrt(num)).each do |i|
+      return false if num % i == 0
+    end
+    true
   end
 end
 
-if (n % 3).zero?
-  prime_factors << 3
-  loop do
-    break unless (n % 3).zero?
-
-    n /= 3
-  end
+prime_number = []
+PrimeFactor.each do |prime|
+  prime_number << prime if 600_851_475_143 % prime == 0
+  break if prime > Math.sqrt(600_851_475_143)
 end
 
-if (n % 5).zero?
-  prime_factors << 3
-  loop do
-    break unless (n % 3).zero?
+puts prime_number
 
-    n /= 3
-  end
+# othrer solution
+
+num = ARGV.first.to_i
+factors = []
+
+def first_prime_factor(n, start)
+  (start..n).find { |x| n % x == 0 }
 end
 
-if (n % 7).zero?
-  prime_factors << 3
-  loop do
-    break unless (n % 3).zero?
-
-    n /= 3
-  end
+remain = num
+while 1 < remain
+  start = (factors.last || 1) + 1
+  x = first_prime_factor(remain, start)
+  factors.push x
+  remain /= x
 end
-
-if (n % 11).zero?
-  prime_factors << 3
-  loop do
-    break unless (n % 3).zero?
-
-    n /= 3
-  end
-end
-
-if (n % 13).zero?
-  prime_factors << 3
-  loop do
-    break unless (n % 3).zero?
-
-    n /= 3
-  end
-end
-
-if (n % 17).zero?
-  prime_factors << 3
-  loop do
-    break unless (n % 3).zero?
-
-    n /= 3
-  end
-end
-
-if (n % 19).zero?
-  prime_factors << 3
-  loop do
-    break unless (n % 3).zero?
-
-    n /= 3
-  end
-end
-
-if (n % 23).zero?
-  prime_factors << 3
-  loop do
-    break unless (n % 3).zero?
-
-    n /= 3
-  end
-end
-
-if (n % 29).zero?
-  prime_factors << 3
-  loop do
-    break unless (n % 3).zero?
-
-    n /= 3
-  end
-end
-
-if (n % 31).zero?
-  prime_factors << 3
-  loop do
-    break unless (n % 3).zero?
-
-    n /= 3
-  end
-end
-
-if (n % 37).zero?
-  prime_factors << 3
-  loop do
-    break unless (n % 3).zero?
-
-    n /= 3
-  end
-end
-
-require 'prime'
-pp "#{n} is prime: #{n.prime?}"
-
-pp prime_factors
-pp n
